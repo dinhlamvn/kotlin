@@ -20,7 +20,11 @@ dependencies {
     allTestsRuntime(commonDep("junit"))
     testCompile(project(":kotlin-scripting-ide-services-unshaded"))
     testCompile(project(":kotlin-scripting-compiler"))
+    testCompile(project(":kotlin-scripting-dependencies"))
+    testCompile(project(":kotlin-main-kts"))
     testCompile(project(":compiler:cli-common"))
+
+    testCompile("org.slf4j:slf4j-log4j12:1.7.30")
 
     testRuntimeOnly(project(":kotlin-compiler"))
     testRuntimeOnly(commonDep("org.jetbrains.intellij.deps", "trove4j"))
