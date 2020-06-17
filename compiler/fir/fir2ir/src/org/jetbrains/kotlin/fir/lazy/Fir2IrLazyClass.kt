@@ -148,7 +148,7 @@ class Fir2IrLazyClass(
                                     return@processFunctionsByName
                                 }
                                 result += if (!it.isFakeOverride) {
-                                    declarationStorage.createIrFunction(it.fir, irParent = this)
+                                    declarationStorage.createIrFunction(it.fir, irParent = this, origin = origin)
                                 } else {
                                     val fakeOverrideSymbol =
                                         FirClassSubstitutionScope.createFakeOverrideFunction(session, it.fir, it)
@@ -165,7 +165,7 @@ class Fir2IrLazyClass(
                         scope.processPropertiesByName(declaration.name) {
                             if (it is FirPropertySymbol) {
                                 result += if (!it.isFakeOverride) {
-                                    declarationStorage.createIrProperty(it.fir, irParent = this)
+                                    declarationStorage.createIrProperty(it.fir, irParent = this, origin = origin)
                                 } else {
                                     val fakeOverrideSymbol =
                                         FirClassSubstitutionScope.createFakeOverrideProperty(session, it.fir, it)
