@@ -8,9 +8,9 @@ package org.jetbrains.kotlin.fir.lazy
 import org.jetbrains.kotlin.descriptors.DeclarationDescriptor
 import org.jetbrains.kotlin.fir.backend.Fir2IrComponents
 import org.jetbrains.kotlin.fir.declarations.*
-import org.jetbrains.kotlin.fir.resolve.firSymbolProvider
 import org.jetbrains.kotlin.fir.symbols.Fir2IrBindableSymbol
 import org.jetbrains.kotlin.ir.IrElementBase
+import org.jetbrains.kotlin.ir.ObsoleteDescriptorBasedAPI
 import org.jetbrains.kotlin.ir.declarations.*
 import org.jetbrains.kotlin.ir.declarations.lazy.lazyVar
 import org.jetbrains.kotlin.ir.expressions.IrConstructorCall
@@ -29,6 +29,7 @@ abstract class AbstractFir2IrLazyDeclaration<F : FirMemberDeclaration, D : IrSym
 
     override lateinit var parent: IrDeclarationParent
 
+    @ObsoleteDescriptorBasedAPI
     override val descriptor: DeclarationDescriptor
         get() = symbol.descriptor
 

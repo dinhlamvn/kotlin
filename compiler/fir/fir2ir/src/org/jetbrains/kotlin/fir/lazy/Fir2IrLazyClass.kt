@@ -15,6 +15,7 @@ import org.jetbrains.kotlin.fir.symbols.Fir2IrClassSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirNamedFunctionSymbol
 import org.jetbrains.kotlin.fir.symbols.impl.FirPropertySymbol
 import org.jetbrains.kotlin.fir.types.isNullableAny
+import org.jetbrains.kotlin.ir.ObsoleteDescriptorBasedAPI
 import org.jetbrains.kotlin.ir.declarations.*
 import org.jetbrains.kotlin.ir.declarations.lazy.lazyVar
 import org.jetbrains.kotlin.ir.types.IrType
@@ -40,6 +41,10 @@ class Fir2IrLazyClass(
         classifierStorage.preCacheTypeParameters(fir)
     }
 
+    override val source: SourceElement
+        get() = SourceElement.NO_SOURCE
+
+    @ObsoleteDescriptorBasedAPI
     override val descriptor: ClassDescriptor
         get() = super.descriptor as ClassDescriptor
 
