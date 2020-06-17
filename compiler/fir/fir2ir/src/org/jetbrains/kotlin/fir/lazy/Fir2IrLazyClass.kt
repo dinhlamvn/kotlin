@@ -41,6 +41,18 @@ class Fir2IrLazyClass(
         classifierStorage.preCacheTypeParameters(fir)
     }
 
+    internal fun prepareTypeParameters() {
+        typeParameters = fir.typeParameters.mapIndexedNotNull { index, typeParameter ->
+            if (typeParameter !is FirTypeParameter) return@mapIndexedNotNull null
+            classifierStorage.getIrTypeParameter(typeParameter, index).apply {
+                parent = this@Fir2IrLazyClass
+                if (superTypes.isEmpty()) {
+                    typeParameter.bounds.mapTo(superTypes) { it.toIrType(typeConverter) }
+                }
+            }
+        }
+    }
+
     override val source: SourceElement
         get() = SourceElement.NO_SOURCE
 
@@ -100,16 +112,7 @@ class Fir2IrLazyClass(
         fir.superTypeRefs.map { it.toIrType(typeConverter) }
     }
 
-    override var typeParameters: List<IrTypeParameter> =
-        fir.typeParameters.mapIndexedNotNull { index, typeParameter ->
-            if (typeParameter !is FirTypeParameter) return@mapIndexedNotNull null
-            classifierStorage.getIrTypeParameter(typeParameter, index).apply {
-                parent = this@Fir2IrLazyClass
-                if (superTypes.isEmpty()) {
-                    typeParameter.bounds.mapTo(superTypes) { it.toIrType(typeConverter) }
-                }
-            }
-        }
+    override lateinit var typeParameters: List<IrTypeParameter>
 
     override var thisReceiver: IrValueParameter? by lazyVar {
         symbolTable.enterScope(this)

@@ -431,6 +431,8 @@ class Fir2IrClassifierStorage(
             }
         }
         classCache[firClass] = irClass
+        // NB: this is needed to prevent recursions in case of self bounds
+        (irClass as Fir2IrLazyClass).prepareTypeParameters()
 
         return symbol
     }
