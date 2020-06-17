@@ -34,6 +34,7 @@ import org.jetbrains.kotlin.resolve.lazy.BodyResolveMode
 import org.jetbrains.kotlin.resolve.scopes.HierarchicalScope
 import org.jetbrains.kotlin.resolve.scopes.utils.*
 import org.jetbrains.kotlin.types.error.ErrorSimpleFunctionDescriptorImpl
+import java.sql.Date
 
 class KotlinImportOptimizer : ImportOptimizer {
     override fun supports(file: PsiFile) = file is KtFile
